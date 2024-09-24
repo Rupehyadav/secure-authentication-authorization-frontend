@@ -24,6 +24,24 @@ This repository contains the **frontend** code for the **Secure Authentication a
 ## How to Get Started:
 
 1. **Install dependencies**:
+
    ```bash
    npm install
    ```
+
+2. **Start the development server**:
+
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for production**:
+   ```bash
+   npm run build
+   ```
+4. **Preview production build**:
+   ```bash
+   npm run preview
+   ```
+
+This frontend application communicates with the Django Rest Framework backend to handle user registration, l ogin, and other secure operations.
