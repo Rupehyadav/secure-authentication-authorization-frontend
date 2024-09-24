@@ -1,40 +1,19 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
-const RegisterForm: React.FC = () => {
-  const [username, setUsername] = useState("");
+const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ username, email, phoneNumber, password });
-    // You can handle form submission, such as making API requests, here.
+    console.log({ email, password });
+    // Handle the login logic, such as sending API requests
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-20 pb-8 mb-4">
-      <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
+    <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-40 pb-8 mb-4">
+      <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
       <form onSubmit={handleSubmit}>
-        {/* Username Field */}
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="username"
-          >
-            Username
-          </label>
-          <input
-            id="username"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-
         {/* Email Field */}
         <div className="mb-4">
           <label
@@ -48,24 +27,6 @@ const RegisterForm: React.FC = () => {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-
-        {/* Phone Number Field */}
-        <div className="mb-4">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-2"
-            htmlFor="phoneNumber"
-          >
-            Phone Number
-          </label>
-          <input
-            id="phoneNumber"
-            type="text"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
@@ -95,21 +56,22 @@ const RegisterForm: React.FC = () => {
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Register
+            Login
           </button>
         </div>
       </form>
 
+      {/* Register Link */}
       <div className="text-center mt-4">
         <p className="text-gray-700">
-          Already have an account?{" "}
-          <Link to="/login" className="text-blue-500 hover:underline">
-            Login here
-          </Link>
+          Don’t have an account?{" "}
+          <a href="/register" className="text-blue-500 hover:underline">
+            Register here
+          </a>
         </p>
       </div>
     </div>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

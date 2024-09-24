@@ -1,47 +1,33 @@
-// import React from "react";
-// import Header from "./Header";
-// import Footer from "./Footer";
-
-// import Dashboard from "./components/Dashboard";
-
-// const App: React.FC = () => {
-//   return (
-//     <div className="App">
-//       <Header />
-//       <div className="container mx-auto">
-//         <h1 className="text-4xl font-bold mb-8 text-center">
-//           Secure Authentication and Authorization
-//         </h1>
-//         <RegisterForm />
-//         <Dashboard />
-//       </div>
-//       <Footer />
-//     </div>
-//   );
-// };
-
-// export default App;
-
 import React from "react";
-import Header from "./Header"; // Import Header
-import Footer from "./Footer"; // Import Footer
+import Header from "./Header";
+import Footer from "./Footer";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegisterForm from "./components/RegisterForm";
+import LoginForm from "./components/LoginForm";
 import "./App.css";
 
 const App: React.FC = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Header />
 
-      <main className="flex-grow container mx-auto p-4 text-center">
-        <h1 className="text-4xl font-bold">
-          Secure Authentication and Authorization
-        </h1>
-        <RegisterForm />
-      </main>
+        <main className="flex-grow container mx-auto p-4 text-center">
+          <h1 className="text-4xl font-bold">
+            Secure Authentication and Authorization
+          </h1>
 
-      <Footer />
-    </div>
+          <Routes>
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/" element={<RegisterForm />} />
+          </Routes>
+          {/* <RegisterForm /> */}
+        </main>
+
+        <Footer />
+      </div>
+    </Router>
   );
 };
 
