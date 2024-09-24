@@ -1,4 +1,6 @@
 import React from "react";
+import "./App.css";
+
 import RegisterForm from "./components/RegisterForm";
 import Dashboard from "./components/Dashboard";
 
@@ -10,7 +12,7 @@ const App: React.FC = () => {
           Secure Authentication and Authorization
         </h1>
         <RegisterForm />
-        <Dashboard />
+        {/* <Dashboard /> */}
       </div>
     </div>
   );
