@@ -44,4 +44,4 @@ This repository contains the **frontend** code for the **Secure Authentication a
    npm run preview
    ```
 
-This frontend application communicates with the Django Rest Framework backend to handle user registration, l ogin, and other secure operations.
+This frontend application communicates with the Django Rest Framework backend to handle user registration, login, and other secure operations.
