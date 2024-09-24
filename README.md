@@ -1,2 +1,2 @@
 # secure-authentication-authorization-frontend
-Authentication and Authorization project using React for frontend 
+React Frontend for Secure Authentication and Authorization
