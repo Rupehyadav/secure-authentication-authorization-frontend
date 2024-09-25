@@ -1,21 +1,63 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const RegisterForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [notification, setNotification] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     console.log({ username, email, phoneNumber, password });
-    // You can handle form submission, such as making API requests, here.
+
+    // Simulate successful registration
+    if (username && email && phoneNumber && password) {
+      // Add some basic password validation here if needed
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters long.");
+        return;
+      }
+
+      setIsRegistered(true);
+      setNotification(
+        "Email verification link has been sent to your email address."
+      );
+
+      // Clear the form (optional)
+      setUsername("");
+      setEmail("");
+      setPhoneNumber("");
+      setPassword("");
+
+      // Redirect to login page after 5 seconds
+      setTimeout(() => {
+        navigate("/login");
+        setNotification(""); // Clear notification
+      }, 5000);
+    } else {
+      alert("Please fill out all fields");
+    }
   };
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-20 pb-8 mb-4">
       <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
+
+      {/* Show Notification */}
+      {notification && (
+        <div
+          className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+          role="alert"
+        >
+          <span className="block sm:inline">{notification}</span>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit}>
         {/* Username Field */}
         <div className="mb-4">
