@@ -10,6 +10,7 @@ import Reports from "./components/Reports";
 import Settings from "./components/Settings";
 import UserManagement from "./components/UserManagement";
 import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 
 const App: React.FC = () => {
   return (
@@ -32,6 +33,8 @@ const App: React.FC = () => {
             <Route path="/settings" element={<Settings />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            {/* Dynamic route for reset password with token */}
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>
           {/* <RegisterForm /> */}
         </main>
