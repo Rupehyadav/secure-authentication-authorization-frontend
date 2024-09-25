@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import axios from "../Axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Captcha.css";
 
@@ -13,21 +14,23 @@ const RegisterForm: React.FC = () => {
   const [notification, setNotification] = useState({ message: "", type: "" });
   const navigate = useNavigate();
 
-  // Handle captcha verification
   const handleCaptchaChange = (token: string | null) => {
     setCaptchaToken(token);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log({ username, email, phoneNumber, password });
+    if (!capchaToken) {
+      setNotification({
+        message: "Please complete the CAPTCHA.",
+        type: "error",
+      });
+      return;
+    }
 
-    // Check if all fields are filled
     if (username && email && phoneNumber && password) {
-      // Add some basic password validation here
       if (password.length < 6) {
-        // Set notification to error type (red color)
         setNotification({
           message: "Password must be at least 6 characters long.",
           type: "error",
@@ -35,26 +38,41 @@ const RegisterForm: React.FC = () => {
         return;
       }
 
-      // On successful registration, show success notification
-      setIsRegistered(true);
-      setNotification({
-        message: "Email verification link has been sent to your email address.",
-        type: "success",
-      });
+      try {
+        const response = await axios.post("/users/register", {
+          username,
+          email,
+          phone_number: phoneNumber,
+          capchaToken: capchaToken,
+        });
 
-      // Clear the form (optional)
-      setUsername("");
-      setEmail("");
-      setPhoneNumber("");
-      setPassword("");
+        setIsRegistered(true);
+        setNotification({
+          message:
+            "Email verification link has been sent to your email address.",
+          type: "success",
+        });
 
-      // Redirect to login page after 5 seconds
-      setTimeout(() => {
-        navigate("/login");
-        setNotification({ message: "", type: "" }); // Clear notification
-      }, 5000);
+        setUsername("");
+        setEmail("");
+        setPhoneNumber("");
+        setPassword("");
+
+        setTimeout(() => {
+          navigate("/login");
+          setNotification({ message: "", type: "" });
+        }, 5000);
+      } catch (error: any) {
+        const errorMsg =
+          error.response?.data?.message ||
+          "An error occurred during registration. Please try again";
+        setNotification({ message: errorMsg, type: "error" });
+      }
     } else {
-      alert("Please fill out all fields.");
+      setNotification({
+        message: "Please fill out all fields.",
+        type: "error",
+      });
     }
   };
 
@@ -62,7 +80,6 @@ const RegisterForm: React.FC = () => {
     <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-20 pb-8 mb-4">
       <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
 
-      {/* Show Notification */}
       {notification.message && (
         <div
           className={`px-4 py-3 rounded relative mb-4 ${
@@ -77,7 +94,6 @@ const RegisterForm: React.FC = () => {
       )}
 
       <form onSubmit={handleSubmit}>
-        {/* Username Field */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -95,7 +111,6 @@ const RegisterForm: React.FC = () => {
           />
         </div>
 
-        {/* Email Field */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -113,7 +128,6 @@ const RegisterForm: React.FC = () => {
           />
         </div>
 
-        {/* Phone Number Field */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -131,7 +145,6 @@ const RegisterForm: React.FC = () => {
           />
         </div>
 
-        {/* Password Field */}
         <div className="mb-6">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -149,7 +162,6 @@ const RegisterForm: React.FC = () => {
           />
         </div>
 
-        {/* Google reCAPTCHA */}
         <div className="recaptcha-container mb-6">
           <ReCAPTCHA
             sitekey="6LeZWE4qAAAAABSGjYpC9LjJK-Zk9MESMEchuHi6"
@@ -157,7 +169,6 @@ const RegisterForm: React.FC = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="flex items-center justify-between">
           <button
             type="submit"
