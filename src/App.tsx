@@ -5,6 +5,10 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import "./App.css";
+import Dashboard from "./components/Dashboard";
+import Reports from "./components/Reports";
+import Settings from "./components/Settings";
+import UserManagement from "./components/UserManagement";
 
 const App: React.FC = () => {
   return (
@@ -20,7 +24,12 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/" element={<RegisterForm />} />
+
+            <Route path="/user-management" element={<UserManagement />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/reports" element={<Reports />} />
           </Routes>
           {/* <RegisterForm /> */}
         </main>

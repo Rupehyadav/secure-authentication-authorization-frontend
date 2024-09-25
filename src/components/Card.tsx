@@ -1,15 +1,26 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
   title: string;
   description: string;
+  path: string;
 }
 
-const Card: React.FC<CardProps> = ({ title, description }) => {
+const Card: React.FC<CardProps> = ({ title, description, path }) => {
+  const navigate = useNavigate(); // Hook for navigation
+
+  const handleClick = () => {
+    navigate(path); // Navigate to the specified path when the card is clicked
+  };
+
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4">
-      <div className="font-bold text-xl mb-2">{title}</div>
-      <p className="text-gray-700 text-base">{description}</p>
+    <div
+      className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:bg-gray-100"
+      onClick={handleClick}
+    >
+      <h2 className="text-xl font-bold mb-4">{title}</h2>
+      <p>{description}</p>
     </div>
   );
 };
