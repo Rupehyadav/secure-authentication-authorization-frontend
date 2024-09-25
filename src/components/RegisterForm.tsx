@@ -152,16 +152,14 @@ const RegisterForm: React.FC = () => {
         </div>
       </form>
 
-      {isRegistered && (
-        <div className="text-center mt-4">
-          <p className="text-gray-700">
-            After verifying your email, please login:
-          </p>
+      <div className="text-center mt-4">
+        <p className="text-gray-700">
+          Already have an account?{" "}
           <Link to="/login" className="text-blue-500 hover:underline">
-            Go to Login
+            Login here
           </Link>
-        </div>
-      )}
+        </p>
+      </div>
     </div>
   );
 };
