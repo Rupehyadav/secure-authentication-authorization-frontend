@@ -7,7 +7,7 @@ const RegisterForm: React.FC = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
-  const [notification, setNotification] = useState("");
+  const [notification, setNotification] = useState({ message: "", type: "" });
   const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -15,18 +15,24 @@ const RegisterForm: React.FC = () => {
 
     console.log({ username, email, phoneNumber, password });
 
-    // Simulate successful registration
+    // Check if all fields are filled
     if (username && email && phoneNumber && password) {
-      // Add some basic password validation here if needed
+      // Add some basic password validation here
       if (password.length < 6) {
-        alert("Password must be at least 6 characters long.");
+        // Set notification to error type (red color)
+        setNotification({
+          message: "Password must be at least 6 characters long.",
+          type: "error",
+        });
         return;
       }
 
+      // On successful registration, show success notification
       setIsRegistered(true);
-      setNotification(
-        "Email verification link has been sent to your email address."
-      );
+      setNotification({
+        message: "Email verification link has been sent to your email address.",
+        type: "success",
+      });
 
       // Clear the form (optional)
       setUsername("");
@@ -37,10 +43,10 @@ const RegisterForm: React.FC = () => {
       // Redirect to login page after 5 seconds
       setTimeout(() => {
         navigate("/login");
-        setNotification(""); // Clear notification
+        setNotification({ message: "", type: "" }); // Clear notification
       }, 5000);
     } else {
-      alert("Please fill out all fields");
+      alert("Please fill out all fields.");
     }
   };
 
@@ -49,12 +55,16 @@ const RegisterForm: React.FC = () => {
       <h2 className="text-2xl font-bold text-center mb-6">Register</h2>
 
       {/* Show Notification */}
-      {notification && (
+      {notification.message && (
         <div
-          className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
+          className={`px-4 py-3 rounded relative mb-4 ${
+            notification.type === "error"
+              ? "bg-red-100 border border-red-400 text-red-700"
+              : "bg-green-100 border border-green-400 text-green-700"
+          }`}
           role="alert"
         >
-          <span className="block sm:inline">{notification}</span>
+          <span className="block sm:inline">{notification.message}</span>
         </div>
       )}
 
@@ -142,14 +152,16 @@ const RegisterForm: React.FC = () => {
         </div>
       </form>
 
-      <div className="text-center mt-4">
-        <p className="text-gray-700">
-          Already have an account?{" "}
+      {isRegistered && (
+        <div className="text-center mt-4">
+          <p className="text-gray-700">
+            After verifying your email, please login:
+          </p>
           <Link to="/login" className="text-blue-500 hover:underline">
-            Login here
+            Go to Login
           </Link>
-        </p>
-      </div>
+        </div>
+      )}
     </div>
   );
 };
