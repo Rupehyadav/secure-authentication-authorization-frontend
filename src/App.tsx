@@ -9,6 +9,7 @@ import Dashboard from "./components/Dashboard";
 import Reports from "./components/Reports";
 import Settings from "./components/Settings";
 import UserManagement from "./components/UserManagement";
+import ForgotPassword from "./components/ForgotPassword";
 
 const App: React.FC = () => {
   return (
@@ -30,6 +31,7 @@ const App: React.FC = () => {
             <Route path="/user-management" element={<UserManagement />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Routes>
           {/* <RegisterForm /> */}
         </main>
