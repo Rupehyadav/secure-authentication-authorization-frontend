@@ -39,10 +39,11 @@ const RegisterForm: React.FC = () => {
       }
 
       try {
-        const response = await axios.post("/users/register", {
+        const response = await axios.post("/users/register/", {
           username,
           email,
           phone_number: phoneNumber,
+          password,
           capchaToken: capchaToken,
         });
 
@@ -67,6 +68,10 @@ const RegisterForm: React.FC = () => {
           error.response?.data?.message ||
           "An error occurred during registration. Please try again";
         setNotification({ message: errorMsg, type: "error" });
+
+        setTimeout(() => {
+          setNotification({ message: "", type: "" });
+        }, 5000);
       }
     } else {
       setNotification({
