@@ -14,6 +14,7 @@ import ResetPassword from "./components/ResetPassword";
 import HomePage from "./components/HomePage";
 import About from "./components/About";
 import Contact from "./components/Contact";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App: React.FC = () => {
   return (
@@ -27,21 +28,41 @@ const App: React.FC = () => {
           </h1>
 
           <Routes>
-            <Route path="/register" element={<RegisterForm />} />
+            {/* Public Routes*/}
             <Route path="/login" element={<LoginForm />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/register" element={<RegisterForm />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/" element={<HomePage />} />
 
-            <Route path="/user-management" element={<UserManagement />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/user-management"
+              element={
+                <ProtectedRoute>
+                  <UserManagement />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <ProtectedRoute>
+                  <Settings />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/reports" element={<Reports />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            {/* Dynamic route for reset password with token */}
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Routes>
-          {/* <RegisterForm /> */}
         </main>
 
         <Footer />
