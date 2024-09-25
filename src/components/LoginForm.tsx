@@ -238,6 +238,16 @@ const LoginForm: React.FC = () => {
               />
             </div>
 
+            {/* Forgot Password Link */}
+            <div className="flex justify-end mb-4">
+              <a
+                href="/forgot-password"
+                className="text-blue-500 hover:underline text-sm"
+              >
+                Forgot Password?
+              </a>
+            </div>
+
             <div className="flex items-center justify-between">
               <button
                 type="submit"
