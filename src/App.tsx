@@ -15,6 +15,7 @@ import HomePage from "./components/HomePage";
 import About from "./components/About";
 import Contact from "./components/Contact";
 import ProtectedRoute from "./components/ProtectedRoute";
+import VerifyEmail from "./components/VerifyEmail";
 
 const App: React.FC = () => {
   return (
@@ -35,6 +36,7 @@ const App: React.FC = () => {
             <Route path="/contact" element={<Contact />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/verify-email/:token" element={<VerifyEmail />} />
             <Route path="/" element={<HomePage />} />
 
             <Route
