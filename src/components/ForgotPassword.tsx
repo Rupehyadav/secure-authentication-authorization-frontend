@@ -1,9 +1,17 @@
 import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import "./Captcha.css";
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
+  const [capchaToken, setCaptchaToken] = useState<string | null>(null);
   const [notification, setNotification] = useState({ message: "", type: "" });
   const [isEmailSent, setIsEmailSent] = useState(false);
+
+  // Handle captcha verification
+  const handleCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,9 +80,16 @@ const ForgotPassword: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border rounded w-full py-2 mb-4 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Enter your email address"
                 required
+              />
+            </div>
+            {/* Google reCAPTCHA */}
+            <div className="recaptcha-container mb-6">
+              <ReCAPTCHA
+                sitekey="your-site-key" // Replace with your reCAPTCHA site key
+                onChange={handleCaptchaChange}
               />
             </div>
 

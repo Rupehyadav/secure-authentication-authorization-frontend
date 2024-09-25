@@ -1,16 +1,34 @@
 import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useNavigate } from "react-router-dom";
+import "./Captcha.css";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [capchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
   const [is2FAEnabled, setIs2FAEnabled] = useState(false); // Track 2FA status
   const [verificationCode, setVerificationCode] = useState(""); // Store the 2FA code
   const [input2FACode, setInput2FACode] = useState(""); // Store the input 2FA code
   const [notification, setNotification] = useState({ message: "", type: "" }); // Notification message
+  const navigate = useNavigate();
+
+  // Handle captcha verification
+  const handleCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+  };
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!capchaToken) {
+      setNotification({
+        message: "Please complete the captchaToken",
+        type: "error",
+      });
+      return;
+    }
 
     /*=========================================================================
     To be used after integrating api
@@ -23,7 +41,7 @@ const LoginForm: React.FC = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email, password, captchaToken}),
         });
 
         if (response.ok) {
@@ -246,6 +264,14 @@ const LoginForm: React.FC = () => {
               >
                 Forgot Password?
               </a>
+            </div>
+
+            {/* Google reCAPTCHA */}
+            <div className="recaptcha-container mb-6">
+              <ReCAPTCHA
+                sitekey="your-site-key" // Replace with your reCAPTCHA site key
+                onChange={handleCaptchaChange}
+              />
             </div>
 
             <div className="flex items-center justify-between">

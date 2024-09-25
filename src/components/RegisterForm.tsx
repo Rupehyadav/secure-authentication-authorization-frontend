@@ -1,14 +1,22 @@
 import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { Link, useNavigate } from "react-router-dom";
+import "./Captcha.css";
 
 const RegisterForm: React.FC = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [capchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [notification, setNotification] = useState({ message: "", type: "" });
   const navigate = useNavigate();
+
+  // Handle captcha verification
+  const handleCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -138,6 +146,14 @@ const RegisterForm: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
+          />
+        </div>
+
+        {/* Google reCAPTCHA */}
+        <div className="recaptcha-container mb-6">
+          <ReCAPTCHA
+            sitekey="your-site-key" // Replace with your reCAPTCHA site key
+            onChange={handleCaptchaChange}
           />
         </div>
 
