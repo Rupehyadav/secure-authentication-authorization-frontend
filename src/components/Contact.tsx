@@ -1,10 +1,18 @@
 import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import "./Captcha.css";
 
 const Contact: React.FC = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [capchaToken, setCaptchaToken] = useState<string | null>(null);
   const [notification, setNotification] = useState({ message: "", type: "" });
+
+  // Handle captcha verification
+  const handleCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,6 +123,14 @@ const Contact: React.FC = () => {
                 placeholder="Enter your message"
                 rows={5}
                 required
+              />
+            </div>
+
+            {/* Google reCAPTCHA */}
+            <div className="recaptcha-container mb-6">
+              <ReCAPTCHA
+                sitekey="your-site-key" // Replace with your reCAPTCHA site key
+                onChange={handleCaptchaChange}
               />
             </div>
 
