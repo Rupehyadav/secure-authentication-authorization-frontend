@@ -88,7 +88,7 @@ const ForgotPassword: React.FC = () => {
             {/* Google reCAPTCHA */}
             <div className="recaptcha-container mb-6">
               <ReCAPTCHA
-                sitekey="6LeZWE4qAAAAABSGjYpC9LjJK-Zk9MESMEchuHi6" // Replace with your reCAPTCHA site key
+                sitekey="6Lcd3k4qAAAAAKyTgF6_s6eXa5gbYQ5tRWtmoo5x"
                 onChange={handleCaptchaChange}
               />
             </div>

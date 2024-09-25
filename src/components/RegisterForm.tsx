@@ -164,7 +164,7 @@ const RegisterForm: React.FC = () => {
 
         <div className="recaptcha-container mb-6">
           <ReCAPTCHA
-            sitekey="6LeZWE4qAAAAABSGjYpC9LjJK-Zk9MESMEchuHi6"
+            sitekey="6Lcd3k4qAAAAAKyTgF6_s6eXa5gbYQ5tRWtmoo5x"
             onChange={handleCaptchaChange}
           />
         </div>
