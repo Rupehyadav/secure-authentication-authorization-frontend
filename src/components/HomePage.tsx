@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PageHeader from "../PageHeader";
 
 const HomePage: React.FC = () => {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
+      <PageHeader title="Secure Authentication and Authorization" />
       <main className="flex flex-col items-center py-12 px-4">
         <section className="max-w-3xl text-center mb-12">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4">
-            Welcome to Secure Authentication and Authorization Website
-          </h2>
           <p className="text-lg text-gray-600">
             Our platform provides a highly secure and efficient authentication
             and authorization system. Safeguard your applications with our

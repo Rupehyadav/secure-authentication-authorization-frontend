@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useNavigate } from "react-router-dom";
 import axios from "../Axios";
 import "./Captcha.css";
+import { AuthContext } from "../AuthContext";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ const LoginForm: React.FC = () => {
   const [input2FACode, setInput2FACode] = useState("");
   const [notification, setNotification] = useState({ message: "", type: "" });
   const [isUserVerified, setIsUserVerified] = useState(true);
+  const authContext = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -39,9 +41,11 @@ const LoginForm: React.FC = () => {
         captchaToken,
       });
 
+      console.log("Ending errorr2");
       if (response.status === 200) {
         const data = response.data;
 
+        console.log("Ending errorr2 4");
         if (data.tokens) {
           if (data.two_factor_required) {
             // If 2FA is required, enable 2FA input
@@ -58,8 +62,13 @@ const LoginForm: React.FC = () => {
               type: "success",
             });
             // Store JWT tokens and redirect to dashboard
+
+            localStorage.setItem("username", data.username);
+            localStorage.setItem("email", data.email);
             localStorage.setItem("access_token", data.tokens.access);
             localStorage.setItem("refresh_token", data.tokens.refresh);
+            authContext?.login(data.username);
+
             navigate("/dashboard");
           }
         } else {
@@ -75,6 +84,7 @@ const LoginForm: React.FC = () => {
         });
       }
     } catch (error) {
+      console.log("Ending errorr");
       setNotification({
         message: "An error occurred during login. Please try again.",
         type: "error",
@@ -154,7 +164,6 @@ const LoginForm: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-40 pb-8 mb-4">
-      {/* Show Notification */}
       {notification.message && (
         <div
           className={`px-4 py-3 rounded relative mb-4 ${

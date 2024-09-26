@@ -16,60 +16,61 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import ProtectedRoute from "./components/ProtectedRoute";
 import VerifyEmail from "./components/VerifyEmail";
+import { AuthProvider } from "./AuthContext";
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <div className="flex flex-col min-h-screen">
-        <Header />
+    <AuthProvider>
+      <Router>
+        <div className="flex flex-col min-h-screen">
+          <Header />
 
-        <main className="flex-grow container mx-auto p-4 text-center">
-          <h1 className="text-4xl font-bold">
-            Secure Authentication and Authorization
-          </h1>
+          <main className="flex-grow container mx-auto p-4 text-center">
+            <Routes>
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route
+                path="/reset-password/:token"
+                element={<ResetPassword />}
+              />
+              <Route path="/verify-email/:token" element={<VerifyEmail />} />
+              <Route path="/" element={<HomePage />} />
 
-          <Routes>
-            {/* Public Routes*/}
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
-            <Route path="/verify-email/:token" element={<VerifyEmail />} />
-            <Route path="/" element={<HomePage />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user-management"
+                element={
+                  <ProtectedRoute>
+                    <UserManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/reports" element={<Reports />} />
+            </Routes>
+          </main>
 
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/user-management"
-              element={
-                <ProtectedRoute>
-                  <UserManagement />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <ProtectedRoute>
-                  <Settings />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/reports" element={<Reports />} />
-          </Routes>
-        </main>
-
-        <Footer />
-      </div>
-    </Router>
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 };
 

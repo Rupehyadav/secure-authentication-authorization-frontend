@@ -1,12 +1,7 @@
-/* LoginForm.css */
-
-/* Scale the reCAPTCHA and maintain aspect ratio */
 .recaptcha-container {
     transform: scale(1.27);
     transform-origin: left;
     width: 100%;
-    /* height: 90%; */
-    /* margin-bottom: 10px; */
   }
 
   .recaptcha-container > div {
@@ -14,7 +9,6 @@
   }
   
   @media (max-width: 768px) {
-    /* Reduce the scale on smaller screens if necessary */
     .recaptcha-container {
       transform: scale(1.2);
       height: 70px;

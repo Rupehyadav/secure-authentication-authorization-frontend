@@ -1,19 +1,12 @@
 import React from "react";
+import PageHeader from "../PageHeader";
 
 const About: React.FC = () => {
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center">
-      <header className="bg-blue-600 w-full py-6 shadow-md">
-        <h1 className="text-white text-4xl font-bold text-center">
-          About Secure Authentication & Authorization
-        </h1>
-      </header>
-
+      <PageHeader title="What We Do" />
       <main className="flex flex-col items-center py-12 px-4">
         <section className="max-w-4xl text-center mb-12">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-6">
-            What We Do
-          </h2>
           <p className="text-lg text-gray-600 leading-relaxed">
             Our platform provides a modern, secure, and user-friendly
             authentication and authorization system designed to protect your
@@ -71,13 +64,6 @@ const About: React.FC = () => {
           </p>
         </section>
       </main>
-
-      <footer className="bg-gray-800 w-full py-4 text-center text-white">
-        <p>
-          &copy; 2024 Secure Authentication & Authorization System. All rights
-          reserved.
-        </p>
-      </footer>
     </div>
   );
 };
