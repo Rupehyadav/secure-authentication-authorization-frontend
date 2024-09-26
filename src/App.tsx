@@ -33,7 +33,7 @@ const App: React.FC = () => {
               <Route path="/contact" element={<Contact />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route
-                path="/reset-password/:token"
+                path="/reset-password/:uid/:token"
                 element={<ResetPassword />}
               />
               <Route path="/verify-email/:token" element={<VerifyEmail />} />

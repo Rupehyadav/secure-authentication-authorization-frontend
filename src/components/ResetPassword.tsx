@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "../Axios";
 
 const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [notification, setNotification] = useState({ message: "", type: "" });
-  const { token } = useParams<{ token: string }>(); // Get token from URL params
+  const { uid, token } = useParams<{ uid: string; token: string }>(); // Get uid and token from URL params
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -19,17 +20,15 @@ const ResetPassword: React.FC = () => {
       return;
     }
 
-    // Simulate API request to reset the password
+    // Submit the new password and the token for validation
     try {
-      const response = await fetch("https://your-api.com/reset-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ password, token }),
+      const response = await axios.post("/users/reset-password/", {
+        password,
+        uid,
+        token,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         setNotification({
           message: "Password has been reset successfully!",
           type: "success",
