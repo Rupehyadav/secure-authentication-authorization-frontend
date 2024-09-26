@@ -278,7 +278,6 @@ const LoginForm: React.FC = () => {
             </div>
           </form>
 
-          {/* Forgot Password Link */}
           <div className="text-right mt-2">
             <Link
               to="/forgot-password"

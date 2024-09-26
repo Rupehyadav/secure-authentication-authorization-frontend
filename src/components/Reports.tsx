@@ -31,7 +31,6 @@ const initialReports: Report[] = [
 const Reports: React.FC = () => {
   const [reports, setReports] = useState<Report[]>(initialReports);
 
-  // Delete report handler
   const handleDelete = (id: number) => {
     const updatedReports = reports.filter((report) => report.id !== id);
     setReports(updatedReports);
@@ -81,7 +80,6 @@ const Reports: React.FC = () => {
         <p className="text-gray-700">No reports available.</p>
       )}
 
-      {/* Placeholder for adding new reports */}
       <div className="mt-6">
         <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
           Add New Report

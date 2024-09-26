@@ -9,7 +9,6 @@ const Contact: React.FC = () => {
   const [capchaToken, setCaptchaToken] = useState<string | null>(null);
   const [notification, setNotification] = useState({ message: "", type: "" });
 
-  // Handle captcha verification
   const handleCaptchaChange = (token: string | null) => {
     setCaptchaToken(token);
   };
@@ -17,15 +16,12 @@ const Contact: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simulate form submission
     if (name && email && message) {
-      // Simulate successful submission
       setNotification({
         message: "Your message has been sent successfully!",
         type: "success",
       });
 
-      // Clear the form
       setName("");
       setEmail("");
       setMessage("");
@@ -57,7 +53,6 @@ const Contact: React.FC = () => {
         </section>
 
         <section className="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
-          {/* Show Notification */}
           {notification.message && (
             <div
               className={`px-4 py-3 rounded relative mb-4 ${
@@ -126,7 +121,6 @@ const Contact: React.FC = () => {
               />
             </div>
 
-            {/* Google reCAPTCHA */}
             <div className="recaptcha-container mb-6">
               <ReCAPTCHA
                 sitekey="6Lcd3k4qAAAAAKyTgF6_s6eXa5gbYQ5tRWtmoo5x"
