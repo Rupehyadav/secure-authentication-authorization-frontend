@@ -43,33 +43,24 @@ const LoginForm: React.FC = () => {
         const data = response.data;
 
         if (data.tokens) {
-          if (data.isVerified) {
-            if (data.two_factor_required) {
-              // If 2FA is required, enable 2FA input
-              setIsLoggedIn(true);
-              setIs2FAEnabled(true);
-              setNotification({
-                message: "A verification code has been sent to your email.",
-                type: "success",
-              });
-            } else {
-              // If 2FA is not required, login is complete
-              setNotification({
-                message: "Login successful!",
-                type: "success",
-              });
-              // Store JWT tokens and redirect to dashboard
-              localStorage.setItem("access_token", data.tokens.access);
-              localStorage.setItem("refresh_token", data.tokens.refresh);
-              navigate("/dashboard");
-            }
-          } else {
-            // User is not verified
-            setIsUserVerified(false);
+          if (data.two_factor_required) {
+            // If 2FA is required, enable 2FA input
+            setIsLoggedIn(true);
+            setIs2FAEnabled(true);
             setNotification({
-              message: "Your email is not verified. Please check your inbox.",
-              type: "error",
+              message: "A verification code has been sent to your email.",
+              type: "success",
             });
+          } else {
+            // If 2FA is not required, login is complete
+            setNotification({
+              message: "Login successful!",
+              type: "success",
+            });
+            // Store JWT tokens and redirect to dashboard
+            localStorage.setItem("access_token", data.tokens.access);
+            localStorage.setItem("refresh_token", data.tokens.refresh);
+            navigate("/dashboard");
           }
         } else {
           setNotification({
