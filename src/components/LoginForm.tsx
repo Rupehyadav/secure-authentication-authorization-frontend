@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../Axios";
 import "./Captcha.css";
 import { AuthContext } from "../AuthContext";
@@ -44,32 +44,26 @@ const LoginForm: React.FC = () => {
       if (response.status === 200) {
         const data = response.data;
 
-        // check if 2FA is required
         if (data.two_factor_required) {
-          // If 2FA is required, prompot for 2FA code
-          setIsLoggedIn(true); // User is logged in, but 2FA is required
-          setIs2FAEnabled(true); // Enable 2FA input Field
+          setIsLoggedIn(true);
+          setIs2FAEnabled(true);
           setNotification({
             message: "A verification code has been sent to your email.",
             type: "success",
           });
         } else if (data.token) {
-          // If no 2FA, proceed with login
           setNotification({
             message: "Login successful!",
             type: "success",
           });
 
-          // Store JWT tokens and user info
           localStorage.setItem("username", data.username);
           localStorage.setItem("email", data.email);
           localStorage.setItem("access_token", data.tokens.access);
           localStorage.setItem("refresh_token", data.tokens.refresh);
 
-          // update context with username
           authContext?.login(data.username);
 
-          // Navigateto the dashboard
           navigate("/dashboard");
         } else {
           setNotification({
@@ -92,7 +86,6 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  // Handle 2FA Code Submission
   const handle2FASubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -111,14 +104,13 @@ const LoginForm: React.FC = () => {
             type: "success",
           });
 
-          // Store JWT tokens and redirect to dashboard
           localStorage.setItem("username", data.username);
           localStorage.setItem("access_token", data.email);
           localStorage.setItem("access_token", data.tokens.access);
           localStorage.setItem("refresh_token", data.tokens.refresh);
 
-          authContext?.login(data.username); // update context with username
-          navigate("/dashboard"); // Redirect to dashboard
+          authContext?.login(data.username);
+          navigate("/dashboard");
         } else {
           setNotification({
             message: "Invalid verification code.",
@@ -285,6 +277,16 @@ const LoginForm: React.FC = () => {
               </button>
             </div>
           </form>
+
+          {/* Forgot Password Link */}
+          <div className="text-right mt-2">
+            <Link
+              to="/forgot-password"
+              className="text-blue-500 hover:underline"
+            >
+              Forgot Password?
+            </Link>
+          </div>
 
           <div className="text-center mt-4">
             <p className="text-gray-700">

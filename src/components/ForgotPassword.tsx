@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import axios from "../Axios";
+import { Link } from "react-router-dom";
 import "./Captcha.css";
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState("");
-  const [capchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [notification, setNotification] = useState({ message: "", type: "" });
   const [isEmailSent, setIsEmailSent] = useState(false);
 
-  // Handle captcha verification
   const handleCaptchaChange = (token: string | null) => {
     setCaptchaToken(token);
   };
@@ -16,22 +17,26 @@ const ForgotPassword: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Simulated API request to send a password reset link
+    if (!captchaToken) {
+      setNotification({
+        message: "Please complete the CAPTCHA.",
+        type: "error",
+      });
+      return;
+    }
+
     try {
-      const response = await fetch("https://your-api.com/forgot-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
+      const response = await axios.post("/users/forgot-password/", {
+        email,
+        captchaToken,
       });
 
-      if (response.ok) {
+      if (response.status === 200) {
         setNotification({
           message: "A password reset link has been sent to your email.",
           type: "success",
         });
-        setIsEmailSent(true); // Track if the email is sent successfully
+        setIsEmailSent(true);
       } else {
         setNotification({
           message: "Error occurred. Please try again.",
@@ -48,7 +53,6 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-40 pb-8 mb-4">
-      {/* Show Notification */}
       {notification.message && (
         <div
           className={`px-4 py-3 rounded relative mb-4 ${
@@ -85,7 +89,7 @@ const ForgotPassword: React.FC = () => {
                 required
               />
             </div>
-            {/* Google reCAPTCHA */}
+
             <div className="recaptcha-container mb-6">
               <ReCAPTCHA
                 sitekey="6Lcd3k4qAAAAAKyTgF6_s6eXa5gbYQ5tRWtmoo5x"
@@ -103,13 +107,12 @@ const ForgotPassword: React.FC = () => {
             </div>
           </form>
 
-          {/* Login Link */}
           <div className="text-center mt-4">
             <p className="text-gray-700">
               Remembered your password?{" "}
-              <a href="/login" className="text-blue-500 hover:underline">
+              <Link to="/login" className="text-blue-500 hover:underline">
                 Login here
-              </a>
+              </Link>
             </p>
           </div>
         </div>
@@ -119,9 +122,9 @@ const ForgotPassword: React.FC = () => {
             Please check your email for the password reset link.
           </p>
           <p>
-            <a href="/login" className="text-blue-500 hover:underline">
+            <Link to="/login" className="text-blue-500 hover:underline">
               Go to Login
-            </a>
+            </Link>
           </p>
         </div>
       )}
