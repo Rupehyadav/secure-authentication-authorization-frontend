@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, ReactNode } from "react";
 
 interface AuthContextType {
   username: string | null;
@@ -8,7 +8,11 @@ interface AuthContextType {
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-export const AuthProvider: React.FC = ({ children }) => {
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [username, setUsername] = useState<string | null>(
     localStorage.getItem("username")
   );
@@ -21,6 +25,7 @@ export const AuthProvider: React.FC = ({ children }) => {
   const logout = () => {
     setUsername(null);
     localStorage.removeItem("username");
+    localStorage.removeItem("email");
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
   };
