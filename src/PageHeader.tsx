@@ -1,7 +1,7 @@
 import React from "react";
 
 interface PageHeaderProps {
-  title: string; // Define a prop for the heading
+  title: string;
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title }) => {

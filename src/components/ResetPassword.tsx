@@ -6,7 +6,7 @@ const ResetPassword: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [notification, setNotification] = useState({ message: "", type: "" });
-  const { uid, token } = useParams<{ uid: string; token: string }>(); // Get uid and token from URL params
+  const { uid, token } = useParams<{ uid: string; token: string }>();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -20,7 +20,6 @@ const ResetPassword: React.FC = () => {
       return;
     }
 
-    // Submit the new password and the token for validation
     try {
       const response = await axios.post("/users/reset-password/", {
         password,
@@ -34,10 +33,9 @@ const ResetPassword: React.FC = () => {
           type: "success",
         });
 
-        // Optionally redirect to login after reset
         setTimeout(() => {
           navigate("/login");
-        }, 3000); // Redirect after 3 seconds
+        }, 3000);
       } else {
         setNotification({
           message: "Error resetting password. Please try again.",
@@ -54,7 +52,6 @@ const ResetPassword: React.FC = () => {
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-40 pb-8 mb-4">
-      {/* Show Notification */}
       {notification.message && (
         <div
           className={`px-4 py-3 rounded relative mb-4 ${
@@ -70,7 +67,6 @@ const ResetPassword: React.FC = () => {
 
       <h2 className="text-2xl font-bold text-center mb-6">Reset Password</h2>
       <form onSubmit={handleSubmit}>
-        {/* Password Field */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -89,7 +85,6 @@ const ResetPassword: React.FC = () => {
           />
         </div>
 
-        {/* Confirm Password Field */}
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
@@ -108,7 +103,6 @@ const ResetPassword: React.FC = () => {
           />
         </div>
 
-        {/* Submit Button */}
         <div className="flex items-center justify-between">
           <button
             type="submit"
@@ -119,7 +113,6 @@ const ResetPassword: React.FC = () => {
         </div>
       </form>
 
-      {/* Link to login */}
       <div className="text-center mt-4">
         <p className="text-gray-700">
           Remembered your password?{" "}

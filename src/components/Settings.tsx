@@ -8,7 +8,6 @@ const Settings: React.FC = () => {
 
   const handleSaveSettings = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you can handle the form submission to update the settings
     console.log({
       password,
       confirmPassword,
@@ -26,7 +25,6 @@ const Settings: React.FC = () => {
         onSubmit={handleSaveSettings}
         className="bg-white shadow-md rounded-lg p-6"
       >
-        {/* Password Section */}
         <div className="mb-6">
           <h2 className="text-xl font-bold mb-4">Change Password</h2>
           <div className="mb-4">
@@ -63,7 +61,6 @@ const Settings: React.FC = () => {
           </div>
         </div>
 
-        {/* Notification Preferences Section */}
         <div className="mb-6">
           <h2 className="text-xl font-bold mb-4">Notification Preferences</h2>
           <label className="flex items-center">
@@ -77,7 +74,6 @@ const Settings: React.FC = () => {
           </label>
         </div>
 
-        {/* Theme Preferences Section */}
         <div className="mb-6">
           <h2 className="text-xl font-bold mb-4">Theme Preferences</h2>
           <div className="flex space-x-4">
@@ -106,7 +102,6 @@ const Settings: React.FC = () => {
           </div>
         </div>
 
-        {/* Save Settings Button */}
         <div>
           <button
             type="submit"

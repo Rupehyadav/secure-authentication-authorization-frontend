@@ -1,4 +1,3 @@
-// Header.tsx
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "./AuthContext";
@@ -8,7 +7,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   if (!authContext) {
-    return null; // If the context is not available for some reason, return null
+    return null;
   }
 
   const { username, logout } = authContext;
@@ -40,7 +39,6 @@ const Header: React.FC = () => {
           </ul>
         </nav>
 
-        {/* Logged-in user info */}
         {username ? (
           <div className="flex items-center space-x-4">
             <img

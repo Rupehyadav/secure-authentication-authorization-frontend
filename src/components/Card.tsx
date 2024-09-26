@@ -8,10 +8,10 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ title, description, path }) => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(path); // Navigate to the specified path when the card is clicked
+    navigate(path);
   };
 
   return (

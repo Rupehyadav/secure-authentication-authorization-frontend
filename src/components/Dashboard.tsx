@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./Card"; // Import the updated Card component
+import Card from "./Card";
 
 const Dashboard: React.FC = () => {
   return (
@@ -9,17 +9,17 @@ const Dashboard: React.FC = () => {
         <Card
           title="User Management"
           description="Manage users securely."
-          path="/user-management" // Navigation path for User Management
+          path="/user-management"
         />
         <Card
           title="Settings"
           description="Configure your system settings."
-          path="/settings" // Navigation path for Settings
+          path="/settings"
         />
         <Card
           title="Reports"
           description="View security reports and logs."
-          path="/reports" // Navigation path for Reports
+          path="/reports"
         />
       </div>
     </div>

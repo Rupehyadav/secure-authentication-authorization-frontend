@@ -16,13 +16,11 @@ const initialUsers: User[] = [
 const UserManagement: React.FC = () => {
   const [users, setUsers] = useState<User[]>(initialUsers);
 
-  // Handle delete user
   const handleDelete = (id: number) => {
     const updatedUsers = users.filter((user) => user.id !== id);
     setUsers(updatedUsers);
   };
 
-  // Handle edit user (this is a basic example, expand to form input in real cases)
   const handleEdit = (id: number) => {
     const updatedUsers = users.map((user) =>
       user.id === id ? { ...user, name: user.name + " (Edited)" } : user
@@ -76,7 +74,6 @@ const UserManagement: React.FC = () => {
         </tbody>
       </table>
 
-      {/* Add new user section (placeholder functionality for now) */}
       <div className="mt-6">
         <button className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">
           Add New User
