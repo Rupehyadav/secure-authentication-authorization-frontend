@@ -139,16 +139,15 @@ const LoginForm: React.FC = () => {
     }
   };
 
-  // Resend verification email if user is not verified
   const handleResendVerification = async () => {
     try {
-      const response = await axios.post("/users/resend-verification/", {
+      const response = await axios.post("/users/resend-2fa/", {
         email,
       });
 
       if (response.status === 200) {
         setNotification({
-          message: "A new verification link has been sent to your email.",
+          message: response.data.message,
           type: "success",
         });
       } else {
@@ -180,7 +179,6 @@ const LoginForm: React.FC = () => {
         </div>
       )}
 
-      {/* If user is not verified, show resend verification link */}
       {!isUserVerified && (
         <div>
           <button
@@ -192,7 +190,6 @@ const LoginForm: React.FC = () => {
         </div>
       )}
 
-      {/* If the user is logged in but 2FA is enabled, show the 2FA form */}
       {isLoggedIn && is2FAEnabled ? (
         <div>
           <h2 className="text-2xl font-bold text-center mb-6">
@@ -289,7 +286,6 @@ const LoginForm: React.FC = () => {
             </div>
           </form>
 
-          {/* Register Link */}
           <div className="text-center mt-4">
             <p className="text-gray-700">
               Don’t have an account?{" "}
