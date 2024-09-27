@@ -51,7 +51,7 @@ const LoginForm: React.FC = () => {
             message: "A verification code has been sent to your email.",
             type: "success",
           });
-        } else if (data.token) {
+        } else if (data.tokens) {
           setNotification({
             message: "Login successful!",
             type: "success",
