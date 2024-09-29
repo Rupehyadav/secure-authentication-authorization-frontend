@@ -9,6 +9,7 @@ const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [capchaToken, setCaptchaToken] = useState<string | null>(null);
   const [isRegistered, setIsRegistered] = useState(false);
   const [notification, setNotification] = useState({ message: "", type: "" });
@@ -16,6 +17,31 @@ const RegisterForm: React.FC = () => {
 
   const handleCaptchaChange = (token: string | null) => {
     setCaptchaToken(token);
+  };
+
+  const validatePassword = (password: string) => {
+    const minLength = 8;
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+    const numberRegex = /[0-9]/;
+    const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/;
+
+    if (password.length < minLength) {
+      return `Password must be at least ${minLength} characters long.`;
+    }
+    if (!uppercaseRegex.test(password)) {
+      return "Password must contain at least one uppercase letter.";
+    }
+    if (!lowercaseRegex.test(password)) {
+      return "Password must contain at least one lowercase letter.";
+    }
+    if (!numberRegex.test(password)) {
+      return "Password must contain at least one number.";
+    }
+    if (!specialCharRegex.test(password)) {
+      return "Password must contain at least one special character.";
+    }
+    return "";
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -29,10 +55,27 @@ const RegisterForm: React.FC = () => {
       return;
     }
 
-    if (username && email && phoneNumber && password) {
-      if (password.length < 6) {
+    if (username && email && phoneNumber && password && confirmPassword) {
+      // if (password.length < 8) {
+      //   setNotification({
+      //     message: "Password must be at least 8 characters long.",
+      //     type: "error",
+      //   });
+      //   return;
+      // }
+      const passwordValidationError = validatePassword(password);
+
+      if (passwordValidationError) {
         setNotification({
-          message: "Password must be at least 6 characters long.",
+          message: passwordValidationError,
+          type: "error",
+        });
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        setNotification({
+          message: "Password do not match.",
           type: "error",
         });
         return;
@@ -162,6 +205,22 @@ const RegisterForm: React.FC = () => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="conform-password"
+          >
+            Confirm Password
+          </label>
+          <input
+            id="conform-password"
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
